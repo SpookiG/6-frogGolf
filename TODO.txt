@@ -1,0 +1,36 @@
+TODO
+
+- More generic CanvasController
+    - generic fade in / fade out
+    - generic snap in / snap out
+    - generic slide in / slide out
+    - CanvasTransition
+    - Selection? (not this time)
+
+- frog controls
+    - arrow keys to move the camera
+    - click, drag, then let go to take shot
+    - shot predicter line
+    - wind
+    - UI
+        - wind check (w/ arrow)
+        - num of shots
+        - time taken
+
+- frog flags
+    - trigger end screen
+    - disable controls
+    - load in next level
+
+- levels
+    - unity level creation?
+
+DONE
+- Copy over scripts
+- Sequencer
+    - start game
+    - transition to next level
+    - end of level
+    - reset level
+    - die (same as reset lvl)
+    - end of game
