@@ -2,8 +2,6 @@ TODO
 
 
 
-
-
 - frog flags
     - trigger end screen
     - disable controls
@@ -23,6 +21,8 @@ TODO
         - wind check (w/ arrow)
         - num of shots
         - time taken
+
+
 
 DONE
 - Copy over scripts
@@ -44,3 +44,6 @@ DONE
     - arrow keys to move the camera
     - click, drag, then let go to take shot
     - shot predicter line
+
+- death transitions tested & working
+- reset level transitions tested & working

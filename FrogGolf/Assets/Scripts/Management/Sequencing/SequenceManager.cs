@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Sequences can be called from anywhere
@@ -40,6 +41,30 @@ public class SequenceManager : MonoBehaviour
     }
 
 
+    internal IEnumerator WaitOnCoroutines(IEnumerator[] coroutines)
+    {
+        int remaining = coroutines.Length;
+
+        IEnumerator WaitOnCoroutine(IEnumerator coroutine)
+        {
+            yield return StartCoroutine(coroutine);
+            remaining--;
+        }
+
+        foreach (IEnumerator coroutine in coroutines)
+        {
+            StartCoroutine(WaitOnCoroutine(coroutine));
+        }
+
+        while (remaining > 0)
+        {
+            yield return null;
+        }
+    }
+
+
+
+
     // Start is called before the first frame update
     /*void Start()
     {
@@ -63,6 +88,8 @@ public class SequenceManager : MonoBehaviour
 public class SequenceEventAccessor
 {
     // coroutine events (yield return these in a sequence)
+
+    
     public event Func<string, float, IEnumerator> fadeMenuTo;
     internal Coroutine FadeMenuTo(SequenceManager sequenceManager, string menuName, float targetAlpha)
     {
@@ -74,12 +101,15 @@ public class SequenceEventAccessor
         return null;
     }
 
+
+    // IMPORTANT: it seems like if you start a coroutine using an event, it only calls one of the entire invokation list. Will need to bear this in mind for future use. slide menu is the only reliable coroutine event because I made some adjustments to make sure every coroutine is being called and finishing
     public event Func<string, bool, IEnumerator> slideMenu;
     internal Coroutine SlideMenu(SequenceManager sequenceManager, string menuName, bool slideIn)
     {
         if (slideMenu != null)
         {
-            return sequenceManager.StartCoroutine(slideMenu(menuName, slideIn));
+            IEnumerator[] coroutines = (from f in slideMenu.GetInvocationList() select (IEnumerator) f.DynamicInvoke(menuName, slideIn)).ToArray();
+            return sequenceManager.StartCoroutine(sequenceManager.WaitOnCoroutines(coroutines));
         }
 
         return null;
@@ -169,7 +199,7 @@ public class WinLevelSequence : Sequence
     {
         sequenceEventManager.ToggleControls("off");
         // toggle menu controls true
-        sequenceEventManager.FadeMenuTo(sequenceManager, "GameUI", 0);
+        //sequenceEventManager.FadeMenuTo(sequenceManager, "GameUI", 0);
         yield return sequenceEventManager.SlideMenu(sequenceManager, "WinScreen", true);
         sequenceEventManager.ToggleControls("menu");
     }
@@ -199,7 +229,7 @@ public class DieSequence : Sequence
         // update death counter?
 
         yield return sequenceEventManager.SlideMenu(sequenceManager, "DieScreen", true);
-        sequenceEventManager.ToggleControls("menu");
+        sequenceEventManager.ToggleControls("deadMenu");
     }
 }
 

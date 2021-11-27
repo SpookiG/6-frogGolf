@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
+    private bool _dead;
+
     // Start is called before the first frame update
     void Start()
     {
         SequenceManager.Current.Events.toggleControls += ToggleControls;
         enabled = false;
+        _dead = false;
     }
 
     private void OnDestroy()
@@ -20,6 +23,12 @@ public class MenuController : MonoBehaviour
     {
         if (controlMode == "menu")
         {
+            _dead = false;
+            enabled = true;
+        }
+        else if (controlMode == "deadMenu")
+        {
+            _dead = true;
             enabled = true;
         }
         else
@@ -33,7 +42,14 @@ public class MenuController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.NextLevel);
+            if (_dead)
+            {
+                SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.Restart);
+            }
+            else
+            {
+                SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.NextLevel);
+            }
         }
     }
 }

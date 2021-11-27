@@ -15,21 +15,32 @@ public class CanvasSlider : MonoBehaviour
     void Start()
     {
         SequenceManager.Current.Events.slideMenu += SlideMenu;
+        SequenceManager.Current.Events.resetLevel += ResetUI;
         _rectTransform = GetComponent<RectTransform>();
+        _rectTransform.anchorMin = new Vector2(0, 1);
+        _rectTransform.anchorMax = new Vector2(1, 2);
+
+        Debug.Log(MenuName);
         //slideIn = true;
     }
 
     private void OnDestroy()
     {
         SequenceManager.Current.Events.slideMenu -= SlideMenu;
+        SequenceManager.Current.Events.resetLevel -= ResetUI;
     }
 
 
     // NOTE: this assumes the anchors on the canvas object are set to min(0, 0) and max(1, 1). Making it account for other anchor values would be complicated
     public IEnumerator SlideMenu(string menuName, bool slideIn)
     {
+        Debug.Log("hello?");
+        Debug.Log(MenuName);
+
         if (menuName == MenuName)
         {
+            Debug.Log("working??");
+
             Vector2 initialMin;
             Vector2 initialMax;
             Vector2 targetMin;
@@ -61,6 +72,13 @@ public class CanvasSlider : MonoBehaviour
             _rectTransform.anchorMax = targetMax;
 
         }
+        yield return null;
+    }
+
+    public void ResetUI()
+    {
+        _rectTransform.anchorMin = new Vector2(0, 1);
+        _rectTransform.anchorMax = new Vector2(1, 2);
     }
 
     // Update is called once per frame

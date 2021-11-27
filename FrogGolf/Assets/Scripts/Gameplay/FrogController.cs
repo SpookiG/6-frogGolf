@@ -13,8 +13,6 @@ public class FrogController : MonoBehaviour
     private bool _stuck;
     private Vector3 _shotVelocity;
     private Vector3 _shotAccelleration;
-    //private ? _shotAngularRotation;
-    private Vector3 _collisionNormal;
 
     private Vector3 _startPos;
     private Quaternion _startRot;
@@ -31,8 +29,6 @@ public class FrogController : MonoBehaviour
 
         _bod.isKinematic = true;
         _stuck = true;
-
-        _collisionNormal = Vector3.up;
         
         _startPos = transform.position;
         _startRot = transform.rotation;
@@ -61,12 +57,12 @@ public class FrogController : MonoBehaviour
 
     void ResetFrog()
     {
+        _bod.isKinematic = true;
         _stuck = true;
 
-        _collisionNormal = Vector3.up;
-
-        transform.position = _startPos;
-        transform.rotation = _startRot;
+         transform.position = _startPos;
+         transform.rotation = _startRot;
+        _timeSinceShot = 0;
     }
 
     // Update is called once per frame
@@ -135,8 +131,8 @@ public class FrogController : MonoBehaviour
                 // apply shot velocity
                 _bod.isKinematic = false;
                 _bod.velocity = _shotVelocity;
-                _bod.angularVelocity = -_camController.transform.right * _shotVelocity.magnitude * .2f;
-                _bod.angularVelocity += _camController.transform.forward * _camController.transform.InverseTransformDirection(_shotVelocity).x * .3f;
+                _bod.angularVelocity = -_camController.transform.right * _shotVelocity.magnitude * .2f;                                                     // roll backwards
+                _bod.angularVelocity += _camController.transform.forward * _camController.transform.InverseTransformDirection(_shotVelocity).x * .3f;       // roll sideways based on angle of hit
 
                 // change frog state
                 _stuck = false;
@@ -146,10 +142,16 @@ public class FrogController : MonoBehaviour
                 
             }
         }
-        /*else
-        {
+        
 
-        }*/
+        if (Input.GetButtonDown("Reset"))
+        {
+            SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.Restart);
+        }
+        else if (transform.position.y < 0)
+        {
+            SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.Die);
+        }
     }
 
     private void FixedUpdate()
@@ -160,7 +162,6 @@ public class FrogController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _collisionNormal = collision.contacts[0].normal;
         //_camController.CollisionNormal = _collisionNormal;
         _bod.isKinematic = true;
         _stuck = true;

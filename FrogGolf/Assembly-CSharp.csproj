@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Gameplay\MenuController.cs" />
     <Compile Include="Assets\Scripts\Management\StartScene.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Goal.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
