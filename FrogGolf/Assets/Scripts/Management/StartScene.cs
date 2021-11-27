@@ -12,13 +12,15 @@ public class StartScene : MonoBehaviour
         if (FirstScene)
         {
             SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.Opening);
+            
         }
         else
         {
-            // make a sequence for starting level
-            //SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.Opening);
+
+            SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.DebugStartLevel);
+
         }
-        
+
         enabled = false;
     }
 }

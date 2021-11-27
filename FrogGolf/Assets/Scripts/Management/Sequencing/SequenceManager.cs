@@ -141,6 +141,9 @@ public class SequenceAccessor
     public Sequence Die = new DieSequence();
     public Sequence Restart = new RestartSequence();
     public Sequence FinishGame = new FinishGameSequence();
+
+    // debug sequences
+    public Sequence DebugStartLevel = new DebugStartLevelSequence();
 }
 
 
@@ -221,5 +224,14 @@ public class FinishGameSequence : Sequence
         yield return sequenceEventManager.SlideMenu(sequenceManager, "FinalScreen", true);
         // toggle menu controls true
         sequenceEventManager.ToggleControls("menu");
+    }
+}
+
+public class DebugStartLevelSequence : Sequence
+{
+    internal override IEnumerator RunSequence(SequenceManager sequenceManager, SequenceEventAccessor sequenceEventManager)
+    {
+        sequenceEventManager.ToggleControls("player");
+        yield return null;
     }
 }

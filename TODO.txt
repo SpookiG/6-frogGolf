@@ -2,15 +2,7 @@ TODO
 
 
 
-- frog controls
-    - arrow keys to move the camera
-    - click, drag, then let go to take shot
-    - shot predicter line
-    - wind
-    - UI
-        - wind check (w/ arrow)
-        - num of shots
-        - time taken
+
 
 - frog flags
     - trigger end screen
@@ -24,6 +16,13 @@ TODO
 
 - CanvasController
     - Selection? (not this time)
+
+- frog controls (not enough time)
+    - wind
+    - UI
+        - wind check (w/ arrow)
+        - num of shots
+        - time taken
 
 DONE
 - Copy over scripts
@@ -40,4 +39,8 @@ DONE
     - generic snap in / snap out
     - generic slide in / slide out
     - CanvasTransition
-    
+
+- frog controls
+    - arrow keys to move the camera
+    - click, drag, then let go to take shot
+    - shot predicter line
