@@ -9,6 +9,7 @@ public class FrogController : MonoBehaviour
     {
         SequenceManager.Current.Events.toggleControls += ToggleControls;
         SequenceManager.Current.Events.resetLevel += ResetFrog;
+        enabled = false;
     }
 
     private void OnDestroy()

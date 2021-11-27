@@ -1,11 +1,6 @@
 TODO
 
-- More generic CanvasController
-    - generic fade in / fade out
-    - generic snap in / snap out
-    - generic slide in / slide out
-    - CanvasTransition
-    - Selection? (not this time)
+
 
 - frog controls
     - arrow keys to move the camera
@@ -25,6 +20,11 @@ TODO
 - levels
     - unity level creation?
 
+
+
+- CanvasController
+    - Selection? (not this time)
+
 DONE
 - Copy over scripts
 - Sequencer
@@ -34,3 +34,10 @@ DONE
     - reset level
     - die (same as reset lvl)
     - end of game
+
+- More generic CanvasController
+    - generic fade in / fade out
+    - generic snap in / snap out
+    - generic slide in / slide out
+    - CanvasTransition
+    

@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         SequenceManager.Current.Events.toggleControls += ToggleControls;
+        enabled = false;
     }
 
     private void OnDestroy()
@@ -17,12 +18,22 @@ public class MenuController : MonoBehaviour
 
     void ToggleControls(string controlMode)
     {
-
+        if (controlMode == "menu")
+        {
+            enabled = true;
+        }
+        else
+        {
+            enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Jump"))
+        {
+            SequenceManager.Current.CallSequence(SequenceManager.Current.Sequences.NextLevel);
+        }
     }
 }

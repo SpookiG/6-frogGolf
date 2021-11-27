@@ -178,10 +178,10 @@ public class NextLevelSequence : Sequence
     {
         sequenceEventManager.ToggleControls("off");
         yield return sequenceEventManager.UITransition(sequenceManager, false);
-
-        // stop all coroutines to prevent sequences interfering, but this also stops NextLevelSequence1 so we need to continue by calling NextLevelSequence2
-        sequenceManager.StopAllCoroutines();
         sequenceEventManager.LoadLevel();
+
+        // wait for a frame after loading level so that destroyed objects can unsubscribe and new objects can subscribe
+        yield return null;
         yield return sequenceEventManager.UITransition(sequenceManager, true);
         sequenceEventManager.ToggleControls("player");
     }
