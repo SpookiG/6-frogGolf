@@ -63,6 +63,8 @@ public class FrogController : MonoBehaviour
          transform.position = _startPos;
          transform.rotation = _startRot;
         _timeSinceShot = 0;
+
+        _camController.ResetCamera();
     }
 
     // Update is called once per frame

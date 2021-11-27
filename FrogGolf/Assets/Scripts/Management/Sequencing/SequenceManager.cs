@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Sequences can be called from anywhere
 // Anything can subscribe to events used by sequences via SequenceEventAccessor
@@ -66,16 +67,19 @@ public class SequenceManager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    /*void Start()
+    void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }*/
+        if(Input.GetButtonDown("Cancel"))
+        {
+            Application.Quit();
+        }
+    }
 }
 
 
@@ -215,8 +219,17 @@ public class NextLevelSequence : Sequence
 
         // wait for a frame after loading level so that destroyed objects can unsubscribe and new objects can subscribe
         yield return null;
+        
+
         yield return sequenceEventManager.UITransition(sequenceManager, true);
-        sequenceEventManager.ToggleControls("player");
+        if (SceneManager.GetActiveScene().name == "Opening")
+        {
+            sequenceManager.CallSequence(sequenceManager.Sequences.Opening);
+        }
+        else
+        {
+            sequenceEventManager.ToggleControls("player");
+        }
     }
 }
 

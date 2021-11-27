@@ -13,7 +13,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         SequenceManager.Current.Events.toggleControls += ToggleControls;
-        SequenceManager.Current.Events.resetLevel += ResetCamera;
 
         _startPos = transform.position;
         _startRot = transform.rotation;
@@ -23,7 +22,6 @@ public class CameraController : MonoBehaviour
     private void OnDestroy()
     {
         SequenceManager.Current.Events.toggleControls -= ToggleControls;
-        SequenceManager.Current.Events.resetLevel -= ResetCamera;
     }
 
     void ToggleControls(string controlMode)
@@ -38,7 +36,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void ResetCamera()
+    public void ResetCamera()
     {
         transform.position = _startPos;
         transform.rotation = _startRot;

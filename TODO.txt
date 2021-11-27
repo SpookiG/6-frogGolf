@@ -2,10 +2,7 @@ TODO
 
 
 
-- frog flags
-    - trigger end screen
-    - disable controls
-    - load in next level
+
 
 - levels
     - unity level creation?
@@ -47,3 +44,9 @@ DONE
 
 - death transitions tested & working
 - reset level transitions tested & working
+- Fixed awful coroutine bug
+
+- frog flags
+    - trigger end screen
+    - disable controls
+    - load in next level
